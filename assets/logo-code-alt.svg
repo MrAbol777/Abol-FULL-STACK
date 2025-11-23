@@ -1,0 +1,92 @@
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient for circle -->
+    <radialGradient id="circleGradient2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#fb923c;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f97316;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ea580c;stop-opacity:1" />
+    </radialGradient>
+    
+    <!-- Gradient for symbols -->
+    <linearGradient id="symbolGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fef3c7;stop-opacity:0.9" />
+    </linearGradient>
+    
+    <!-- Glow effect -->
+    <filter id="glow2">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Main Circle with shadow effect -->
+  <circle cx="200" cy="200" r="185" fill="rgba(234, 88, 12, 0.3)" opacity="0.5"/>
+  <circle cx="200" cy="200" r="180" fill="url(#circleGradient2)"/>
+  
+  <!-- Inner decorative ring -->
+  <circle cx="200" cy="200" r="165" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+  
+  <!-- Code Brackets: { } -->
+  <g transform="translate(200, 200)" filter="url(#glow2)">
+    <!-- Left curly brace { -->
+    <path d="M -70 -50 
+             Q -85 -50 -85 -35
+             Q -85 -25 -75 -25
+             Q -85 -15 -85 0
+             Q -85 15 -75 15
+             Q -85 25 -85 35
+             Q -85 50 -70 50
+             M -70 -50
+             Q -55 -50 -55 -35
+             Q -55 -25 -65 -25
+             Q -55 -15 -55 0
+             Q -55 15 -65 15
+             Q -55 25 -55 35
+             Q -55 50 -70 50" 
+          stroke="url(#symbolGradient)" 
+          stroke-width="7" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          fill="none"/>
+    
+    <!-- Right curly brace } -->
+    <path d="M 70 -50 
+             Q 85 -50 85 -35
+             Q 85 -25 75 -25
+             Q 85 -15 85 0
+             Q 85 15 75 15
+             Q 85 25 85 35
+             Q 85 50 70 50
+             M 70 -50
+             Q 55 -50 55 -35
+             Q 55 -25 65 -25
+             Q 55 -15 55 0
+             Q 55 15 65 15
+             Q 55 25 55 35
+             Q 55 50 70 50" 
+          stroke="url(#symbolGradient)" 
+          stroke-width="7" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          fill="none"/>
+  </g>
+  
+  <!-- Small decorative elements (code dots) -->
+  <g opacity="0.5">
+    <circle cx="120" cy="120" r="2.5" fill="url(#symbolGradient)"/>
+    <circle cx="280" cy="120" r="2.5" fill="url(#symbolGradient)"/>
+    <circle cx="120" cy="280" r="2.5" fill="url(#symbolGradient)"/>
+    <circle cx="280" cy="280" r="2.5" fill="url(#symbolGradient)"/>
+  </g>
+  
+  <!-- Subtle grid pattern (optional, very light) -->
+  <g opacity="0.05" stroke="url(#symbolGradient)" stroke-width="0.5">
+    <line x1="100" y1="200" x2="300" y2="200"/>
+    <line x1="200" y1="100" x2="200" y2="300"/>
+  </g>
+</svg>
+

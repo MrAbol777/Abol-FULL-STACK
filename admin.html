@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل مدیریت - پورتفولیو</title>
+    <!-- CRITICAL: Load auth.js FIRST before anything else for security -->
+    <script src="auth.js"></script>
+    <!-- Additional inline protection -->
+    <script>
+        // Double check - if somehow auth.js didn't block, block here too
+        (function() {
+            try {
+                const session = localStorage.getItem('portfolio_admin_session');
+                if (!session) {
+                    window.location.replace('login.html');
+                    return;
+                }
+                const sessionData = JSON.parse(session);
+                if (!sessionData.authenticated || new Date().getTime() > sessionData.expires) {
+                    localStorage.removeItem('portfolio_admin_session');
+                    window.location.replace('login.html');
+                }
+            } catch(e) {
+                window.location.replace('login.html');
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>پنل مدیریت</h2>
+                <p>مدیریت پورتفولیو</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#personal" class="nav-item active" data-section="personal">
+                    <span>👤</span> اطلاعات شخصی
+                </a>
+                <a href="#about" class="nav-item" data-section="about">
+                    <span>📝</span> درباره من
+                </a>
+                <a href="#skills" class="nav-item" data-section="skills">
+                    <span>💼</span> مهارت‌ها
+                </a>
+                <a href="#projects" class="nav-item" data-section="projects">
+                    <span>🚀</span> پروژه‌ها
+                </a>
+                <a href="#experience" class="nav-item" data-section="experience">
+                    <span>📅</span> تجربه کاری
+                </a>
+                <a href="#contact" class="nav-item" data-section="contact">
+                    <span>📧</span> اطلاعات تماس
+                </a>
+                <a href="#messages" class="nav-item" data-section="messages">
+                    <span>💬</span> پیام‌های تماس
+                    <span class="message-badge" id="message-badge" style="display: none;">0</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="btn-view-site" target="_blank">مشاهده سایت</a>
+                <button class="btn-save-all" id="saveAll">💾 ذخیره همه تغییرات</button>
+                <button class="btn-logout" id="admin-logout">🚪 خروج از پنل</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>مدیریت پورتفولیو</h1>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="loadData">🔄 بارگذاری داده‌ها</button>
+                    <button class="btn btn-danger" id="resetData">🔄 بازنشانی</button>
+                </div>
+            </header>
+
+            <!-- Personal Info Section -->
+            <section class="admin-section active" id="section-personal">
+                <h2>اطلاعات شخصی</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>نام کامل</label>
+                        <input type="text" id="personal-name" placeholder="ابوالفضل دوست‌گل">
+                    </div>
+                    <div class="form-group">
+                        <label>عنوان شغلی</label>
+                        <input type="text" id="personal-title" placeholder="برنامه‌نویس فول‌استک">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>توضیحات Hero</label>
+                        <textarea id="personal-description" rows="3" placeholder="توسعه‌دهنده فول‌استک با تجربه..."></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="admin-section" id="section-about">
+                <h2>درباره من</h2>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>پاراگراف اول</label>
+                        <textarea id="about-p1" rows="3"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>پاراگراف دوم</label>
+                        <textarea id="about-p2" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>تعداد پروژه‌ها</label>
+                        <input type="text" id="stat-projects" placeholder="50+">
+                    </div>
+                    <div class="form-group">
+                        <label>سال تجربه</label>
+                        <input type="text" id="stat-experience" placeholder="5+">
+                    </div>
+                    <div class="form-group">
+                        <label>رضایت مشتری</label>
+                        <input type="text" id="stat-satisfaction" placeholder="100%">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section class="admin-section" id="section-skills">
+                <h2>مهارت‌ها</h2>
+                <div class="skills-manager">
+                    <div id="skills-list" class="skills-list"></div>
+                    <button class="btn btn-primary" id="add-skill">➕ افزودن مهارت جدید</button>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section class="admin-section" id="section-projects">
+                <h2>پروژه‌ها</h2>
+                <div class="projects-manager">
+                    <div id="projects-list" class="projects-list"></div>
+                    <button class="btn btn-primary" id="add-project">➕ افزودن پروژه جدید</button>
+                </div>
+            </section>
+
+            <!-- Experience Section -->
+            <section class="admin-section" id="section-experience">
+                <h2>تجربه کاری</h2>
+                <div class="experience-manager">
+                    <div id="experience-list" class="experience-list"></div>
+                    <button class="btn btn-primary" id="add-experience">➕ افزودن تجربه جدید</button>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="admin-section" id="section-contact">
+                <h2>اطلاعات تماس</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>ایمیل</label>
+                        <input type="email" id="contact-email" placeholder="your.email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>لینک تلگرام</label>
+                        <input type="url" id="contact-telegram" placeholder="https://t.me/yourusername">
+                    </div>
+                    <div class="form-group">
+                        <label>لینک گیت‌هاب</label>
+                        <input type="url" id="contact-github" placeholder="https://github.com/yourusername">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Messages Section -->
+            <section class="admin-section" id="section-messages">
+                <div class="messages-header">
+                    <h2>پیام‌های تماس</h2>
+                    <div class="messages-actions">
+                        <button class="btn btn-primary" id="refresh-messages">🔄 بروزرسانی</button>
+                        <button class="btn btn-danger" id="clear-all-messages">🗑️ حذف همه</button>
+                    </div>
+                </div>
+                <div class="messages-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">کل پیام‌ها:</span>
+                        <span class="stat-value" id="total-messages">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">خوانده نشده:</span>
+                        <span class="stat-value unread" id="unread-messages">0</span>
+                    </div>
+                </div>
+                <div id="messages-list" class="messages-list">
+                    <div class="empty-messages">
+                        <p>📭 هنوز پیامی دریافت نشده است</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Success Message -->
+            <div class="success-message" id="successMessage">
+                ✅ تغییرات با موفقیت ذخیره شد!
+            </div>
+        </main>
+    </div>
+
+    <!-- auth.js already loaded in head for security -->
+    <script src="admin.js"></script>
+</body>
+</html>
+
