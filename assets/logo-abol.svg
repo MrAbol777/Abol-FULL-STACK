@@ -1,0 +1,26 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient for background circle -->
+    <radialGradient id="abolGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#f97316;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ea580c;stop-opacity:1" />
+    </radialGradient>
+    
+    <!-- Gradient for text -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="60" cy="60" r="55" fill="url(#abolGradient)"/>
+  
+  <!-- Inner border -->
+  <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  
+  <!-- Text: Abol -->
+  <text x="60" y="75" font-family="Arial, sans-serif" font-size="32" font-weight="bold" 
+        fill="url(#textGradient)" text-anchor="middle" letter-spacing="1px">Abol</text>
+</svg>
+

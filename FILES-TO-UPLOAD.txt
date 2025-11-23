@@ -1,0 +1,36 @@
+📁 لیست فایل‌های پروژه برای آپلود به GitHub
+
+✅ فایل‌های اصلی (Root):
+- index.html
+- style.css
+- script.js
+- admin.html
+- admin.css
+- admin.js
+- login.html
+- login.css
+- login.js
+- auth.js
+- README.md
+- .gitignore
+- DEPLOY.md
+- GITHUB-UPLOAD-GUIDE.md
+- FREE-HOSTING-GUIDE.md
+- DEPLOY-GITHUB-PAGES.md
+- UPLOAD-VIA-WEB.md
+- QUICK-START.md
+- LOGO-README.md
+- logo-preview.html
+- deploy-to-github.ps1
+- deploy-to-github.bat
+- FILES-TO-UPLOAD.txt (این فایل)
+
+📁 پوشه assets:
+- assets/logo-abol.svg
+- assets/logo-code.svg
+- assets/logo-code-alt.svg
+- assets/logo-laptop-code.svg
+
+---
+💡 نکته: همه این فایل‌ها را باید به GitHub آپلود کنید!
+
